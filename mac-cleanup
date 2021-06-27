@@ -15,7 +15,7 @@ usage() {
 Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-u]
 
 A Mac Cleaning up Utility by fwartner
-https://github.com/fwartner/mac-Cleaning up
+https://github.com/fwartner/mac-cleanup
 
 Available options:
 
@@ -239,7 +239,6 @@ msg "${GREEN}Success!${NOFORMAT}"
 # Calculate the change in available disk space
 newAvailable=$(df -k / | tail -1 | awk '{print $4}')
 count=$((newAvailable - oldAvailable))
-#count=$(( $count * 512))
 bytesToHuman $count
 
 cleanup
