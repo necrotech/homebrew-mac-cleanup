@@ -238,7 +238,7 @@ msg "${GREEN}Success!${NOFORMAT}"
 
 # Calculate the change in available disk space
 newAvailable=$(df -k / | tail -1 | awk '{print $4}')
-count=$((oldAvailable - newAvailable))
+count=$((newAvailable - oldAvailable))
 #count=$(( $count * 512))
 bytesToHuman $count
 
