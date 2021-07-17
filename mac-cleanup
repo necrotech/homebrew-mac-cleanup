@@ -131,17 +131,17 @@ msg 'Clearing User Log Files...'
 rm -rfv ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/* &>/dev/null
 rm -rfv ~/Library/Logs/CoreSimulator/* &>/dev/null
 
-if [ -d ~/Library/Logs/JetBrains/ ]; then
+if [[ -d ~/Library/Logs/JetBrains/ ]]; then
   msg 'Clearing all application log files from JetBrains...'
   rm -rfc ~/Library/Logs/JetBrains/*/ &>/dev/null
 fi
 
-if [ -d ~/Library/Application\ Support/Adobe/ ]; then
+if [[ -d ~/Library/Application\ Support/Adobe/ ]]; then
   msg 'Clearing Adobe Cache Files...'
   sudo rm -rfv ~/Library/Application\ Support/Adobe/Common/Media\ Cache\ Files/* &>/dev/null
 fi
 
-if [ -d ~/Library/Application\ Support/Google/Chrome/ ]; then
+if [[ -d ~/Library/Application\ Support/Google/Chrome/ ]]; then
   msg 'Clearing Google Chrome Cache Files...'
   sudo rm -rfv ~/Library/Application\ Support/Google/Chrome/Default/Application\ Cache/* &>/dev/null
 fi
@@ -167,18 +167,18 @@ if type "xcrun" &>/dev/null; then
 fi
 
 # support deleting gradle caches
-if [ -d "/Users/${HOST}/.gradle/caches" ]; then
+if [[ -d "/Users/${HOST}/.gradle/caches" ]]; then
 	msg 'Cleaning up Gradle cache...'
 	rm -rfv ~/.gradle/caches/ &>/dev/null
 fi
 
 # support deleting Dropbox Cache if they exist
-if [ -d "/Users/${HOST}/Dropbox" ]; then
+if [[ -d "/Users/${HOST}/Dropbox" ]]; then
 	msg 'Clearing Dropbox 📦 Cache Files...'
 	sudo rm -rfv ~/Dropbox/.dropbox.cache/* &>/dev/null
 fi
 
-if [ -d ~/Library/Application\ Support/Google/DriveFS/ ]; then
+if [[ -d ~/Library/Application\ Support/Google/DriveFS/ ]]; then
   msg 'Clearing Google Drive File Stream Cache Files...'
   killall "Google Drive File Stream"
   rm -rfv ~/Library/Application\ Support/Google/DriveFS/[0-9a-zA-Z]*/content_cache &>/dev/null
@@ -190,7 +190,7 @@ if type "composer" &>/dev/null; then
 fi
 
 if type "brew" &>/dev/null; then
-	if [ "$update" = true ]; then
+	if [[ "$update" = true ]]; then
 		msg 'Updating Homebrew Recipes...'
 		brew update &>/dev/null
 		msg 'Upgrading and removing outdated formulae...'
@@ -215,7 +215,7 @@ if type "docker" &>/dev/null; then
 	docker system prune -af &>/dev/null
 fi
 
-if [ "$PYENV_VIRTUALENV_CACHE_PATH" ]; then
+if [[ "$PYENV_VIRTUALENV_CACHE_PATH" ]]; then
 	msg 'Removing Pyenv-VirtualEnv Cache...'
 	rm -rfv "$PYENV_VIRTUALENV_CACHE_PATH" &>/dev/null
 fi
