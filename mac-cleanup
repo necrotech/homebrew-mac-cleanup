@@ -86,7 +86,7 @@ deleteCaches() {
 bytesToHuman() {
 	b=${1:-0}
 	d=''
-	s=0
+	s=1
 	S=(Bytes {K,M,G,T,E,P,Y,Z}iB)
 	while ((b > 1024)); do
 		d="$(printf ".%02d" $((b % 1024 * 100 / 1024)))"
@@ -101,7 +101,7 @@ sudo -v
 
 HOST=$(whoami)
 
-# Keep-alive sudo until `clenaup.sh` has finished
+# Keep-alive sudo until `mac-cleanup.sh` has finished
 while true; do
 	sudo -n true
 	sleep 60
@@ -111,7 +111,7 @@ done 2>/dev/null &
 # Save the amount of used space on the system volume, in Kilobytes, for comparison later.
 oldAvailable=$(df -k / | tail -1 | awk '{print $4}')
 
-msg 'Emptying the Trash on all mounted volumes and the main HDD...'
+msg 'Emptying the Trash 🗑 on all mounted volumes and the main HDD...'
 sudo rm -rfv /Volumes/*/.Trashes/* &>/dev/null
 sudo rm -rfv ~/.Trash/* &>/dev/null
 
@@ -131,19 +131,27 @@ msg 'Clearing User Log Files...'
 rm -rfv ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/* &>/dev/null
 rm -rfv ~/Library/Logs/CoreSimulator/* &>/dev/null
 
+<<<<<<< HEAD
 msg 'Clearing PhpStorm Log Files...'
-rm -rfv ~/Library/Logs/JetBrains/PhpStorm[0-9]*/ &>/dev/null
+if [ -d ~/Library/Logs/JetBrains/ ]; then
+  msg 'Clearing all application log files from JetBrains...'
+  rm -rfc ~/Library/Logs/JetBrains/*/ &>/dev/null
+fi
 
-msg 'Clearing Adobe Cache Files...'
-sudo rm -rfv ~/Library/Application\ Support/Adobe/Common/Media\ Cache\ Files/* &>/dev/null
+if [ -d ~/Library/Application\ Support/Adobe/ ]; then
+  msg 'Clearing Adobe Cache Files...'
+  sudo rm -rfv ~/Library/Application\ Support/Adobe/Common/Media\ Cache\ Files/* &>/dev/null
+fi
 
-msg 'Clearing Google Chrome Cache Files...'
-sudo rm -rfv ~/Library/Application\ Support/Google/Chrome/Default/Application\ Cache/* &>/dev/null
+if [ -d ~/Library/Application\ Support/Google/Chrome/ ]; then
+  msg 'Clearing Google Chrome Cache Files...'
+  sudo rm -rfv ~/Library/Application\ Support/Google/Chrome/Default/Application\ Cache/* &>/dev/null
+fi
 
 msg 'Cleaning up iOS Applications...'
 rm -rfv ~/Music/iTunes/iTunes\ Media/Mobile\ Applications/* &>/dev/null
 
-msg 'Removng iOS Device Backups...'
+msg 'Removing iOS Device Backups...'
 rm -rfv ~/Library/Application\ Support/MobileSync/Backup/* &>/dev/null
 
 msg 'Cleaning up XCode Derived Data and Archives...'
@@ -172,9 +180,11 @@ if [ -d "$HOME/Dropbox" ]; then
 	sudo rm -rfv ~/Dropbox/.dropbox.cache/* &>/dev/null
 fi
 
-msg 'Clearing Google Drive File Stream Cache Files...'
-killall "Google Drive File Stream"
-rm -rfv ~/Library/Application\ Support/Google/DriveFS/[0-9a-zA-Z]*/content_cache &>/dev/null
+if [ -d ~/Library/Application\ Support/Google/DriveFS/ ]; then
+  msg 'Clearing Google Drive File Stream Cache Files...'
+  killall "Google Drive File Stream"
+  rm -rfv ~/Library/Application\ Support/Google/DriveFS/[0-9a-zA-Z]*/content_cache &>/dev/null
+fi
 
 if type "composer" &>/dev/null; then
 	msg 'Cleaning up composer...'
