@@ -108,8 +108,8 @@ while true; do
 	kill -0 "$$" || exit
 done 2>/dev/null &
 
-# Save the amount of used space on the system volume, in Kilobytes, for comparison later.
-oldAvailable=$(df -k / | tail -1 | awk '{print $4}')
+# Save the amount of used space on the system volume for comparison later.
+oldAvailable=$(df / | tail -1 | awk '{print $4}')
 
 msg 'Emptying the Trash 🗑 on all mounted volumes and the main HDD...'
 sudo rm -rfv /Volumes/*/.Trashes/* &>/dev/null
@@ -131,7 +131,6 @@ msg 'Clearing User Log Files...'
 rm -rfv ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/* &>/dev/null
 rm -rfv ~/Library/Logs/CoreSimulator/* &>/dev/null
 
-<<<<<<< HEAD
 msg 'Clearing PhpStorm Log Files...'
 if [ -d ~/Library/Logs/JetBrains/ ]; then
   msg 'Clearing all application log files from JetBrains...'
@@ -169,13 +168,13 @@ if type "xcrun" &>/dev/null; then
 fi
 
 # support deleting gradle caches
-if [ -d "$HOME/.gradle/caches" ]; then
+if [ -d "/Users/${HOST}/.gradle/caches" ]; then
 	msg 'Cleaning up Gradle cache...'
 	rm -rfv ~/.gradle/caches/ &>/dev/null
 fi
 
 # support deleting Dropbox Cache
-if [ -d "$HOME/Dropbox" ]; then
+if [ -d "/Users/${HOST}/Dropbox" ]; then
 	msg 'Clearing Dropbox 📦 Cache Files...'
 	sudo rm -rfv ~/Dropbox/.dropbox.cache/* &>/dev/null
 fi
@@ -247,7 +246,7 @@ sudo purge &>/dev/null
 msg "${GREEN}Success!${NOFORMAT}"
 
 # Calculate the change in available disk space
-newAvailable=$(df -k / | tail -1 | awk '{print $4}')
+newAvailable=$(df / | tail -1 | awk '{print $4}')
 count=$((newAvailable - oldAvailable))
 bytesToHuman $count
 
