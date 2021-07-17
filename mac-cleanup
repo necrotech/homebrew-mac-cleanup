@@ -173,7 +173,7 @@ if [ -d "/Users/${HOST}/.gradle/caches" ]; then
 	rm -rfv ~/.gradle/caches/ &>/dev/null
 fi
 
-# support deleting Dropbox Cache
+# support deleting Dropbox Cache if they exist
 if [ -d "/Users/${HOST}/Dropbox" ]; then
 	msg 'Clearing Dropbox 📦 Cache Files...'
 	sudo rm -rfv ~/Dropbox/.dropbox.cache/* &>/dev/null
