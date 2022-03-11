@@ -15,7 +15,7 @@ usage() {
 Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-u]
 
 A Mac Cleaning up Utility by fwartner
-https://github.com/fwartner/mac-cleanup
+https://github.com/mac-cleanup/mac-cleanup-sh
 
 Available options:
 
@@ -197,7 +197,7 @@ fi
 
 if type "composer" &>/dev/null; then
 	msg 'Cleaning up composer...'
-	composer clearcache &>/dev/null
+	composer clearcache --no-interaction &>/dev/null
 fi
 
 # Deletes Steam caches, logs, and temp files
@@ -247,12 +247,6 @@ if [[ -d ~/wget-log ]]; then
 	rm -fv ~/wget-log &>/dev/null
 	rm -fv ~/.wget-hsts &>/dev/null
 fi
-
-# Deletes Bash/ZSH logs
-# -Astro
-msg 'Clearing Bash/ZSH history...'
-rm -fv ~/.bash_history &>/dev/null
-rm -fv ~/.zhistory &>/dev/null
 
 # Deletes Cacher logs
 # I dunno either
@@ -323,6 +317,11 @@ fi
 if type "pod" &>/dev/null; then
 	msg 'Cleaning up Pod Cache...'
 	pod cache clean --all &>/dev/null
+fi
+
+if type "go" &>/dev/null; then
+	msg 'Clearing Go module cache...'
+	go clean -modcache &>/dev/null
 fi
 
 # Deletes all Microsoft Teams Caches and resets it to default - can fix also some performance issues
