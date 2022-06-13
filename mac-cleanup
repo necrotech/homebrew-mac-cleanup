@@ -194,7 +194,6 @@ if [[ -d ~/Library/Application\ Support/Google/Chrome/ ]]; then
   remove_paths
 fi
 
-# iOS stuff
 collect_paths "$HOME/Music/iTunes/iTunes\ Media/Mobile\ Applications/*"
 msg 'Cleaning up iOS Applications...'
 remove_paths
