@@ -20,8 +20,8 @@ usage() {
   cat <<EOF
 Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-u]
 
-A Mac Cleaning up Utility by fwartner
-https://github.com/mac-cleanup/mac-cleanup-sh
+A Mac Cleaning up Utility by fwartner, modified by necrotech
+https://github.com/necrotech/mac-cleanup
 
 Available options:
 
