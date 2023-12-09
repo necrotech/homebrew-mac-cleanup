@@ -3,8 +3,8 @@
 #
 # mac-cleanup
 #
-# A Mac Cleaning up Utility by fwartner
-# https://github.com/mac-cleanup/mac-cleanup-sh
+# A Mac Cleaning up Utility by fwartner, modified by necrotech
+# https://github.com/necrotech/mac-cleanup
 
 set -E
 trap cleanup SIGINT SIGTERM ERR EXIT
