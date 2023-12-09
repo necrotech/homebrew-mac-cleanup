@@ -137,13 +137,13 @@ collect_paths() {
   done
 }
 
-# Ask for the administrator password upfront
+# Ask for the administrator password upfront, then keep-alive sudo until script
+# has finished. sudo caches credentials for 5 minutes, so update every 4 to be
+# safe.
 sudo -v
-
-# Keep-alive sudo until `mac-cleanup.sh` has finished
 while true; do
   sudo -n true
-  sleep 60
+  sleep 240
   kill -0 "$$" || exit
 done 2>/dev/null &
 
