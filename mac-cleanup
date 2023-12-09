@@ -106,6 +106,7 @@ bytesToHuman() {
 }
 
 count_dry() {
+	(( ${#path_list[@]} == 0 )) && return
   for path in "${path_list[@]}"; do
     if [[ -d "$path" ]] || [[ -f "$path" ]]; then
       temp_dry_results=$(sudo du -ck "$path" | tail -1 | awk '{ print $1 }')
@@ -115,6 +116,7 @@ count_dry() {
 }
 
 remove_paths() {
+	(( ${#path_list[@]} == 0 )) && return
   if [[ -z "$dry_run" ]]; then
     for path in "${path_list[@]}"; do
       rm -rfv "$path" &>/dev/null
@@ -124,6 +126,7 @@ remove_paths() {
 }
 
 collect_paths() {
+	(( ${#@[@]} == 0 )) && return
 	for path in $@; do
 		[[ -d "$path" ]] || [[ -f "$path" ]] && path_list+=("$path")
 	done
