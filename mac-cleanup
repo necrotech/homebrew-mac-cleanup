@@ -103,11 +103,9 @@ bytesToHuman() {
     b=$((b / 1024))
     ((s++))
   done
-  if [[ -z "$dry_results" ]]; then
-    msg "$b$d ${S[$s]} of space was cleaned up"
-  else
-    msg "Approx $b$d ${S[$s]} of space will be cleaned up"
-  fi
+  local act=was
+  [[ -z "$dry_results" ]] && act="will be"
+  msg "Approx $b$d ${S[$s]} of space $act cleaned up"
 }
 
 count_dry() {
@@ -218,6 +216,7 @@ collect_paths "$HOME"/Library/Developer/Xcode/iOS Device Logs/*
 msg 'Cleaning up XCode Derived Data and Archives...'
 remove_paths
 
+# IOS simulators
 if type "xcrun" &>/dev/null; then
   if [[ -z "$dry_run" ]]; then
     msg 'Cleaning up iOS Simulators...'
